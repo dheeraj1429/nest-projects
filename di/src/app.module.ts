@@ -1,10 +1,21 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Inject, Module } from '@nestjs/common';
+import { DiModule } from './di/di.module';
+
+// stander providers.
+// @Injectable
+
+// custom providers
+// custom object save in ioc container
+// object
+// unique id: string.
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [DiModule],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(@Inject('APP_CONSTAINS') private readonly constains: any) {
+    console.log(constains);
+  }
+}
