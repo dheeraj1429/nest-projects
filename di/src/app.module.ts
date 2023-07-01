@@ -1,4 +1,4 @@
-import { Inject, Module } from '@nestjs/common';
+import {  Module } from '@nestjs/common';
 import { DiModule } from './di/di.module';
 
 // stander providers.
