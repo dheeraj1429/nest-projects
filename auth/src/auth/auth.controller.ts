@@ -1,13 +1,23 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Headers } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SingupDto } from './dto/signup.dto';
+import { SinupDto } from './dto/sinup.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+   constructor(private readonly authService: AuthService) {}
 
-  @Post('/singup')
-  singUp(@Body() singupDto: SingupDto): Promise<string> {
-    return this.authService.singUp(singupDto);
-  }
+   @Get('genrate-access-token')
+   async genrateAccessToken(@Headers() headers) {
+      return this.authService.genrateAccessToken(headers);
+   }
+
+   @Post('sign-up')
+   async singUp(@Body() body: SinupDto) {
+      return this.authService.signUpUser(body);
+   }
+
+   @Post('sign-in')
+   async signIn(@Body() body: SinupDto) {
+      return this.authService.singIn(body?.email, body?.password);
+   }
 }

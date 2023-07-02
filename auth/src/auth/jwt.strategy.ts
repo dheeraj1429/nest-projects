@@ -1,19 +1,19 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, ExtractJwt } from 'passport-jwt';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+import { mongooseId } from './auth.interface';
 
-@Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor() {
-    super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET,
-    });
-  }
+   constructor() {
+      super({
+         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 
-  async validate(payload: { email: string }) {
-    const { email } = payload;
-    if (!email) throw new UnauthorizedException();
-    return payload;
-  }
+         // access token secret.
+         secretOrKey: process.env.JWT_ACCESS_SECRET,
+      });
+   }
+
+   async validate(payload: any): Promise<{ _id: mongooseId }> {
+      const { _id } = payload;
+      return { _id };
+   }
 }
