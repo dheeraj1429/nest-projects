@@ -4,10 +4,10 @@ export class SinupDto {
    @IsString()
    @IsNotEmpty()
    @IsEmail({}, { message: 'Please enter valid email' })
-   email: string;
+   readonly email: string;
 
    @IsString()
    @IsNotEmpty()
    @MinLength(3)
-   password: string;
+   readonly password: string;
 }

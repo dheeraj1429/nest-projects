@@ -43,4 +43,8 @@ export class JwtTokenService {
       const accessToken = await this.genrateAccessToken({ _id: validate?._id });
       return { accessToken };
    }
+
+   async getTokenInfo(token: string) {
+      console.log(token);
+   }
 }
